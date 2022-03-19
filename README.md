@@ -41,7 +41,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
 I was not able to create the textview with total number of characters left for tweet.
 
 ## Open-source libraries used
