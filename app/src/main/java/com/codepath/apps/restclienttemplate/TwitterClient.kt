@@ -8,18 +8,8 @@ import com.github.scribejava.apis.FlickrApi
 import com.github.scribejava.apis.TwitterApi
 import com.github.scribejava.core.builder.api.BaseApi
 
-/*
- *
- * This is the object responsible for communicating with a REST API.
- * Specify the constants below to change the API being communicated with.
- * See a full list of supported API classes:
- *   https://github.com/scribejava/scribejava/tree/master/scribejava-apis/src/main/java/com/github/scribejava/apis
- * Key and Secret are provided by the developer site for the given API i.e dev.twitter.com
- * Add methods for each relevant endpoint in the API.
- *
- * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
- *
- */
+// TwitterClient.kt is where we do our api call
+
 class TwitterClient(context: Context) : OAuthBaseClient(
     context, REST_API_INSTANCE, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET,
     null, String.format(
@@ -53,12 +43,22 @@ class TwitterClient(context: Context) : OAuthBaseClient(
 
     fun getHomeTimeline(handler: JsonHttpResponseHandler) {
         val apiUrl =
-            getApiUrl("statuses/home_timeline.json")
+            getApiUrl("statuses/home_timeline.json") // get a list of tweet objects
 
         // Can specify query string params directly or through RequestParams.
         val params = RequestParams()
         params.put("count", "25")
         params.put("since_id", 1)
         client.get(apiUrl, params, handler)
+    }
+
+    fun publishTweet(tweetContent: String, handler: JsonHttpResponseHandler) {
+        val apiUrl =
+            getApiUrl("statuses/update.json") // get a list of tweet objects
+
+        // Can specify query string params directly or through RequestParams.
+        val params = RequestParams()
+        params.put("status", tweetContent)
+        client.post(apiUrl, params, "", handler)
     }
 }
